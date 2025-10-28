@@ -1,0 +1,6 @@
+.cmds { padding: 1rem; }
+.cmds__title { margin: 0 0 .75rem; }
+.cmds__list { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
+.cmds__list li { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.cmds__list code { white-space: pre-wrap; color: var(--text-color); }
+.cmds__actions { display: flex; justify-content: flex-end; margin-top: 1rem; }

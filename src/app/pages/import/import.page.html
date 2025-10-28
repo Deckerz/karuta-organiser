@@ -1,0 +1,23 @@
+<section class="import">
+  <header class="import__header">
+    <h2>Import CSV</h2>
+    <p class="muted">Select a CSV file containing the expected headers.</p>
+  </header>
+
+  <div class="import__control" style="display:flex; gap:.75rem; align-items:center;">
+    <mat-form-field appearance="outline" class="import__file-field">
+      <mat-label>CSV file</mat-label>
+      <input matInput [value]="selectedFileName()" placeholder="Choose a .csv file" readonly />
+      <button mat-button matSuffix type="button" (click)="fileInput.click()">Browse…</button>
+    </mat-form-field>
+  </div>
+  <input #fileInput hidden type="file" accept=".csv,text/csv" (change)="onFileSelected($event)" />
+
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+
+  @if (previewCount() > 0) {
+    <p class="success">{{ previewCount() }} cards parsed. <a [routerLink]="['/cards']">View cards</a></p>
+  }
+</section>

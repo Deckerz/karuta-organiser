@@ -1,0 +1,76 @@
+.tile {
+  position: relative;
+  min-height: 160px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--surface-color);
+  padding: .5rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  /* subtle outer outline for separation */
+  outline: 1px solid var(--border-color);
+  outline-offset: 2px;
+}
+.tile.is-selected { outline-color: var(--link-color); border-color: var(--link-color); }
+.tile__checkbox { position: absolute; top: .25rem; right: calc(.25rem + 1.5rem + .35rem); }
+
+.tile__menu-btn {
+  position: absolute;
+  top: .25rem;
+  right: .25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  background: var(--surface-color);
+  color: var(--muted-color);
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+  padding: 0;
+}
+.tile__menu-btn:hover,
+.tile__menu-btn:focus-visible { color: var(--text-color); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+.tile__delete-btn {
+  position: absolute;
+  top: calc(.25rem + 1.5rem + .35rem);
+  right: .25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  background: var(--surface-color);
+  color: var(--muted-color);
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+  padding: 0;
+}
+.tile__delete-btn:hover,
+.tile__delete-btn:focus-visible { color: var(--text-color); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+
+.tile__header { display: grid; gap: .1rem; }
+.tile__name { font-weight: 600; }
+.tile__name, .tile__series { max-width: 90%; }
+.tile__series { color: var(--muted-color); font-size: .95rem; }
+.tile__appearance { color: var(--muted-color); font-size: .85rem; }
+
+.tile__code {
+  position: absolute;
+  left: .5rem;
+  bottom: .5rem;
+  color: var(--muted-color);
+}
+.tile__num-ed {
+  position: absolute;
+  right: .5rem;
+  bottom: .5rem;
+  color: var(--muted-color);
+}
+
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }

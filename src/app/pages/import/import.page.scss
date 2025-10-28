@@ -1,0 +1,9 @@
+:host { display: block; padding: 1rem; color: var(--text-color); }
+.import__header { margin-bottom: .75rem; }
+.muted { color: var(--muted-color); }
+.import__box { border: 1px solid var(--border-color); border-radius: 8px; background: var(--surface-color); padding: 1rem; }
+.import__control { padding: .75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--surface-color); }
+.import__control .import__file-field { width: 100%; display: block; }
+.error { color: #ef4444; }
+.success { color: var(--primary-color); }
+input[type='file'] { margin-block: .25rem; }

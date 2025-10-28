@@ -1,0 +1,144 @@
+<section class="cards">
+  
+
+  @if (cards().length === 0) {
+    <p>No cards loaded yet.</p>
+  } @else {
+    <div class="cards__layout">
+      <aside class="cards__sidebar">
+        <h3>Untagged</h3>
+        <div class="actions actions--untagged">
+          <div class="actions__search-wrap">
+            <span class="hint actions__count">{{ filteredUntagged().length }} / {{ untagged().length }}</span>
+            <mat-form-field appearance="outline" class="actions__search">
+              <mat-label>Search untagged by name or series</mat-label>
+              <input matInput type="search" [value]="untaggedSearch()" (input)="untaggedSearch.set($any($event.target).value)" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="actions actions--untagged actions--untagged-second">
+          <div class="actions__assign-wrap">
+            <span class="hint actions__selected">Selected: {{ selectedUntagged().size }}</span>
+            <mat-form-field appearance="outline" class="actions__assign">
+              <mat-label>Assign to group</mat-label>
+              <mat-select [disabled]="selectedUntagged().size === 0" [value]="bulkAssignGroup()" (selectionChange)="onBulkAssignChange($event.value)">
+                <mat-option [value]="">Select group…</mat-option>
+                @for (g of managedGroups(); track g) {
+                  <mat-option [value]="g">{{ g }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <button class="actions__clear" mat-button type="button" (click)="clearSelectedUntagged()" [disabled]="selectedUntagged().size === 0">Clear</button>
+        </div>
+        @if (filteredUntagged().length === 0) {
+          <p>All cards are tagged.</p>
+        } @else {
+          <div class="cards-grid">
+            @for (c of filteredUntagged(); track trackBy(c)) {
+              <app-card-entry
+                [card]="c"
+                [selectable]="true"
+                [selected]="isSelectedUntagged(c)"
+                (toggleSelect)="toggleSelectUntagged(c)"
+              />
+            }
+          </div>
+        }
+      </aside>
+
+      <main class="cards__content">
+        <div class="content__header">
+          <h3>Tagged</h3>
+          <button mat-stroked-button color="warn" type="button" (click)="confirmClear()">Clear imported data</button>
+        </div>
+        <div class="actions actions--grouped">
+          <div class="actions__search-wrap">
+            <span class="hint actions__count">{{ filteredGroupedCount() }} / {{ groupedCount() }}</span>
+            <mat-form-field appearance="outline" class="actions__search">
+              <mat-label>Search tagged by name or series</mat-label>
+              <input matInput type="search" [value]="groupSearch()" (input)="groupSearch.set($any($event.target).value)" />
+            </mat-form-field>
+          </div>
+        </div>
+        @if (groups().length === 0) {
+          <p>No tagged groups yet.</p>
+        } @else {
+          @for (g of filteredGroups(); track trackGroup(g)) {
+            <section class="group">
+              <h3 class="group__title">Tag: {{ g.tag }}</h3>
+              <div class="cards-grid">
+                @for (c of g.list; track trackBy(c)) {
+                  <app-card-entry [card]="c" [current]="g.tag" />
+                }
+              </div>
+            </section>
+          }
+        }
+      </main>
+
+      <!-- Popup dialog replaces dropdown menus -->
+
+      <aside class="cards__manager">
+        <p class="manager__import"><a [routerLink]="['/']">Import another CSV</a></p>
+        <h3>Manage Groups</h3>
+        <div class="manager__add">
+          <mat-form-field appearance="outline" style="width:100%;">
+            <mat-label>New group name</mat-label>
+            <input matInput type="text" [value]="newGroupName()" (input)="newGroupName.set($any($event.target).value)" (keyup.enter)="addGroup()" />
+            <button mat-button matSuffix color="primary" type="button" aria-label="Add group" (click)="addGroup()" [disabled]="newGroupName().trim() === ''">Add</button>
+          </mat-form-field>
+        </div>
+        @if (managedGroups().length === 0) {
+          <p>No groups yet.</p>
+        } @else {
+          <ul class="manager__list">
+            @for (g of managedGroups(); track g) {
+              <li>
+                <span>{{ g }} ({{ countForGroup(g) }})</span>
+                <button mat-stroked-button color="warn" type="button" (click)="deleteGroup(g)">Delete</button>
+              </li>
+            }
+          </ul>
+        }
+        <p class="hint">Deleting a group will unassign all cards in that group.</p>
+
+        <section class="activity">
+          <h4 style="display:flex; align-items:center; justify-content: space-between; gap: .5rem;">
+            <span>Activity</span>
+            <button mat-stroked-button type="button" (click)="openCommandsDialog()">Generate commands</button>
+          </h4>
+          @if (activity().length === 0) {
+            <p>No recent activity.</p>
+          } @else {
+            <ul class="activity__list">
+              @for (e of activity(); track i; let i = $index) {
+                <li>
+                  <span class="time">{{ e.timestamp | date:'shortTime' }}</span>
+                  <span class="msg">
+                    @switch (e.type) {
+                      @case ('imported') { Imported {{ e.count }} cards }
+                      @case ('group.added') { Added group "{{ e.name }}" }
+                      @case ('group.removed') {
+                        Removed group "{{ e.name }}" ({{ e.affected }} cards)
+                        <button class="link" type="button" (click)="undoEvent(e)">Undo</button>
+                      }
+                      @case ('card.tag.assigned') {
+                        Tagged {{ e.code }} to "{{ e.toTag }}"
+                        <button class="link" type="button" (click)="undoEvent(e)">Undo</button>
+                      }
+                      @case ('card.tag.unassigned') {
+                        Untagged {{ e.code }}
+                        <button class="link" type="button" (click)="undoEvent(e)">Undo</button>
+                      }
+                    }
+                  </span>
+                </li>
+              }
+            </ul>
+          }
+        </section>
+      </aside>
+    </div>
+  }
+</section>

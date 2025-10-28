@@ -1,0 +1,28 @@
+<div class="dialog__wrap">
+  <h3 class="dialog__title">Actions</h3>
+  <div class="dialog__content">
+    @if (!(current.trim())) {
+      <div class="menu__label">Assign to group</div>
+      <div class="dialog__buttons">
+        @for (g of groups(); track g) {
+          <button mat-raised-button color="primary" (click)="assign(g)">{{ g }}</button>
+        }
+      </div>
+    } @else {
+      <div class="dialog__buttons">
+        <button mat-stroked-button color="warn" (click)="unassign()">Remove</button>
+      </div>
+      <div class="menu__label">Move to group</div>
+      <div class="dialog__buttons">
+        @for (g of groups(); track g) {
+          @if (g !== current) {
+            <button mat-raised-button color="primary" (click)="move(g)">{{ g }}</button>
+          }
+        }
+      </div>
+    }
+  </div>
+  <div class="dialog__actions">
+    <button mat-button (click)="close()">Close</button>
+  </div>
+</div>

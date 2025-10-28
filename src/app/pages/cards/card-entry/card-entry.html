@@ -1,0 +1,26 @@
+<div class="tile" [class.is-selected]="selected()" (click)="onTileClick($event)">
+  @if (selectable()) {
+    <input type="checkbox" class="tile__checkbox" [checked]="selected()" (change)="toggleSelect.emit()" aria-label="Select card" />
+  }
+  <button
+    type="button"
+    class="tile__menu-btn"
+    (click)="openAssign()"
+    aria-label="Assign or move">+</button>
+  @if (current()) {
+    <button
+      type="button"
+      class="tile__delete-btn"
+      (click)="unassign()"
+      aria-label="Remove from group">×</button>
+  }
+  <div class="tile__header">
+    <div class="tile__name">{{ character() }}</div>
+    <div class="tile__series">{{ series() }}</div>
+    @if (appearance()) {
+      <div class="tile__appearance">{{ appearance() }}</div>
+    }
+  </div>
+  <div class="tile__code mono">{{ card().code }}</div>
+  <div class="tile__num-ed mono">{{ card().number }} - {{ edition() }}</div>
+</div>

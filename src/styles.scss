@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: mat.$violet-palette,
+    typography: (
+      plain-family: Roboto,
+      brand-family: Roboto,
+      bold-weight: 900,
+      medium-weight: 500,
+      regular-weight: 300,
+    ),
+    density: 0,
+  ));
+}
+
+/* App CSS variables mapped to the Material dark theme semantics */
+:root {
+  /* Text colors */
+  --text-color: rgba(255, 255, 255, 0.87);
+  --muted-color: rgba(255, 255, 255, 0.6);
+  /* Surfaces and borders */
+  --surface-color: #1e1b24; /* dark violet-ish to match theme */
+  --border-color: rgba(255, 255, 255, 0.12);
+  /* Links */
+  --link-color: #8ab4f8;
+}
+
+/* Global typography: ensure the whole app uses Roboto */
+html, body {
+  font-family: 'Roboto', 'Open Sans', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 400;
+}

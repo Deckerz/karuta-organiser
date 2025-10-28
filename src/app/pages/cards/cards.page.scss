@@ -1,0 +1,200 @@
+:host { display: block; padding: 1rem; color: var(--text-color); }
+
+.cards__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cards__layout {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr; /* 20/60/20 split */
+  gap: 1rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: .75rem;
+}
+
+.tile {
+  position: relative;
+  min-height: 160px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--surface-color);
+  padding: .5rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.tile__menu-btn {
+  position: absolute;
+  top: .25rem;
+  right: .25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: grid;
+  place-items: center;
+  background: var(--surface-color);
+  color: var(--muted-color);
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+  padding: 0;
+}
+.tile__menu-btn:hover,
+.tile__menu-btn:focus-visible { color: var(--text-color); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.menu__content {
+  position: absolute;
+  right: 0;
+  margin-top: .25rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--surface-color);
+  padding: .5rem;
+  display: grid;
+  gap: .4rem;
+  min-width: 150px;
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0,0,0,.18);
+}
+.menu__content button { width: 100%; text-align: left; }
+.menu__label { font-size: .85rem; color: var(--muted-color); }
+
+.tile__header { display: grid; gap: .1rem; }
+.tile__name { font-weight: 600; }
+.tile__series { color: var(--muted-color); font-size: .95rem; }
+
+.tile__code {
+  position: absolute;
+  left: .5rem;
+  bottom: .5rem;
+  color: var(--muted-color);
+}
+.tile__num-ed {
+  position: absolute;
+  right: .5rem;
+  bottom: .5rem;
+  color: var(--muted-color);
+}
+
+.tile__actions {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  margin-top: .25rem;
+}
+
+.cards__sidebar {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: .75rem;
+  background: var(--surface-color);
+}
+.cards__sidebar .actions { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; width: 100%; font-size: .95rem; }
+.cards__sidebar .actions--untagged { align-items: end; }
+.cards__sidebar .actions--untagged .actions__search { flex: 1; width: 100%; display: block; }
+.cards__sidebar .actions--untagged .actions__count { white-space: nowrap; }
+.cards__sidebar .actions--untagged .actions__search-wrap { position: relative; flex: 1; }
+.cards__sidebar .actions--untagged .actions__search-wrap .actions__count {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + .25rem); /* sit just above the field */
+  font-size: .8rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.cards__sidebar .actions--untagged-second { align-items: center; }
+.cards__sidebar .actions--untagged-second .actions__assign { min-width: 12rem; flex: 1 1 auto; width: 100%; }
+.cards__sidebar .actions--untagged-second .actions__assign-wrap { position: relative; flex: 1; }
+.cards__sidebar .actions--untagged-second .actions__assign-wrap .actions__selected {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + .25rem);
+  font-size: .8rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.cards__sidebar .actions--untagged-second .actions__clear {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  height: 56px; /* match outlined form-field control height */
+  margin: 0;
+}
+/* Keep defaults for Material components to avoid visual artifacts; compactness via font-size and spacing only */
+
+.cards__sidebar ul,
+.cards__content .card-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* older list layout removed */
+
+.cards__content .group { margin-bottom: 1.25rem; }
+.group__title { margin: .25rem 0 .5rem; }
+
+/* Tagged column header: title + clear button inline */
+.cards__content .content__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  margin: 0 0 .5rem;
+  padding-bottom: 1rem;
+}
+.cards__content .content__header h3 { margin: 0; }
+
+/* Grouped search toolbar */
+.cards__content .actions { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; width: 100%; }
+.cards__content .actions--grouped .actions__search { flex: 1; width: 100%; display: block; }
+.cards__content .actions--grouped .actions__search-wrap { position: relative; flex: 1; }
+.cards__content .actions--grouped .actions__search-wrap .actions__count {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + .25rem);
+  font-size: .8rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* legacy table styles removed in favor of card list */
+
+/* Action controls */
+.cards__sidebar .actions select { font: inherit; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.cards__content .tile__actions > button { margin-right: .25rem; }
+.cards__content .tile__actions > select { font: inherit; }
+
+.cards__manager {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: .75rem;
+  background: var(--surface-color);
+}
+.cards__manager > h3 { margin-top: 0; }
+.manager__import { margin: 0 0 .25rem; text-align: right; }
+.manager__import a { color: var(--link-color); text-decoration: none; }
+.manager__import a:hover { text-decoration: underline; }
+.manager__add { display: flex; gap: .5rem; margin-bottom: .75rem; }
+.manager__add input { flex: 1; }
+.manager__list { list-style: none; margin: 0; padding: 0; }
+.manager__list li { display: flex; align-items: center; justify-content: space-between; padding: .4rem .25rem; border-bottom: 1px dashed var(--border-color); }
+.manager__list li:last-child { border-bottom: 0; }
+.hint { color: var(--muted-color); font-size: .85rem; margin-top: .75rem; }
+
+/* Activity panel */
+.activity { margin-top: 1rem; border-top: 1px dashed var(--border-color); padding-top: .75rem; }
+.activity h4 { margin: 0 0 .5rem; font-size: 1rem; }
+.activity__list { list-style: none; padding: 0; margin: 0; display: grid; gap: .25rem; }
+.activity__list li { display: flex; gap: .5rem; align-items: baseline; font-size: .9rem; }
+.activity__list .time { color: var(--muted-color); font-variant-numeric: tabular-nums; width: 3.5rem; flex: none; }
+.activity__list .link { margin-left: .5rem; background: none; border: 0; color: var(--link-color, #2563eb); padding: 0; cursor: pointer; font: inherit; }
+.activity__list .link:hover { text-decoration: underline; }
